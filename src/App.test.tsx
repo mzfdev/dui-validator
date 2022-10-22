@@ -1,8 +1,9 @@
 import { render } from 'react-dom';
 import { describe } from 'vitest'
 import App from './App';
-import duiValidator from './duiValidator';
 import * as ReactDOM from 'react-dom';
+import renderer from 'react-test-renderer';
+
 
 describe('App', () => { 
 
@@ -19,7 +20,13 @@ describe('App', () => {
     element.remove();
   })
 
-  it('should render');
+  it('should render', () => {
+    const component = renderer.create(
+      <App/>
+    );
+    const comp = component.toJSON();
+    expect(comp).toMatchSnapshot();
+  });
 
   it('should have title "Mi DUI es valido?"', () => {
     const title = element.querySelector('h1');
